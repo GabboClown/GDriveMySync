@@ -1,5 +1,5 @@
 import os
-from Authenticator import Authenticator
+from App.Api.Authenticator import Authenticator
 from dotenv import load_dotenv
 
 # Dependencies used in main file
