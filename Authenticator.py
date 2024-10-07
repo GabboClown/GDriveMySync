@@ -21,7 +21,7 @@ class Authenticator:
 
         # Fetches raw credentials from token.json and creates a Credentials object
         if os.path.exists('token.json'):
-            creds = Credentials.from_authorized_user_file("token.json", os.environ['SCOPES'])
+            creds = Credentials.from_authorized_user_file("token.json", os.environ['SCOPE'])
         # If credentials don't exist, or if they're not valid, start auth process
         if not creds or not creds.valid:
             # Refresh credentials if needed
@@ -29,8 +29,17 @@ class Authenticator:
                 creds.refresh(Request())
             # Or create them
             else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    'credentials.json', os.environ['SCOPES'])
+                client_config = {
+                    "installed": {
+                        "client_id": os.environ["CLIENT_ID"],
+                        "client_secret": os.environ["CLIENT_SECRET"],
+                        "auth_uri": os.environ["AUTH_URI"],
+                        "token_uri": os.environ["TOKEN_URI"],
+                        "redirect_uris": [os.environ["REDIRECT_URI"]],
+                    }
+                }
+                flow = InstalledAppFlow.from_client_config(
+                    client_config, os.environ['SCOPE'])
                 creds = flow.run_local_server(port=0)
 
             # Saves credentials for next use
