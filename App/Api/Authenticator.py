@@ -4,24 +4,22 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build, Resource
 
-# This class uses Singleton pattern for service object creation after Authentication
 class Authenticator:
-    _instance = None  # Attributo statico per il Singleton
-
-    # Method needed for Singleton pattern
-    @classmethod
-    def getServiceInstance(cls) -> Resource:
-        if cls._instance is None:
-            cls._instance = cls._auth()
-        return cls._instance
+    _service = None
+        
+    @staticmethod
+    def getService():
+        if Authenticator._service is None:
+            Authenticator._service = Authenticator._auth()
+        return Authenticator._service
     
-    @classmethod
-    def _auth(cls) -> Resource:
+    @staticmethod
+    def _auth() -> Resource:
         creds = None
 
         # Fetches raw credentials from token.json and creates a Credentials object
         if os.path.exists('token.json'):
-            creds = Credentials.from_authorized_user_file("token.json", os.environ['SCOPE'])
+            creds = Credentials.from_authorized_user_file("token.json", [os.environ['SCOPE']])
         # If credentials don't exist, or if they're not valid, start auth process
         if not creds or not creds.valid:
             # Refresh credentials if needed
