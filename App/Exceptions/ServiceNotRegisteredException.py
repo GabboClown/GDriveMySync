@@ -1,0 +1,2 @@
+class ServiceNotRegisteredException(Exception):
+    pass
