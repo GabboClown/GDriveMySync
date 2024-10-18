@@ -1,23 +1,43 @@
 # Google Cloud MySync
 
-## Project purpose
-This project aims to sync a remote Google Drive folder to your device
+## Project Purpose
+This project aims to sync a remote Google Drive folder to your device.
 
-## Program setup
-First thing first, create an app on Google Cloud Console to access your Google Drive API. You can follow [this] (https://developers.google.com/workspace/guides/get-started) tutorial made by Google on this topic.
-Next, create an ```.env``` file following the ```.env.example```.
-Then, fill the empty variables, such as ```CLIENT_ID``` and ````CLIENT_SECRET```.
-Your ```.env``` file will look something like this:
+## Program Setup
+
+### 1. Google Cloud Console Setup
+First, you need to create an app on Google Cloud Console to access your Google Drive API. Follow this tutorial by Google to get started: [Google Cloud API Setup](https://developers.google.com/workspace/guides/get-started).
+
+### 2. Install dependencies
+To install the needed dependencies, run 
+```bash 
+pip install -r dependencies.txt
 ```
-CLIENT_ID = 
-CLIENT_SECRET = 
-AUTH_URI =  "https://accounts.google.com/o/oauth2/auth"
-TOKEN_URI = "https://oauth2.googleapis.com/token"
-REDIRECT_URI = 
-SCOPE = "https://www.googleapis.com/auth/drive"
+you can delete the file later.
+
+
+### 3. Create `.env` File
+Next, create an `.env` file by following the structure of `.env.example`. This file will store the required credentials for accessing your Google Drive API.
+
+### 4. Fill the Variables
+Inside the `.env` file, you will need to provide the following variables: `CLIENT_SECRET`, `CLIENT_ID`
+
+- Fill in the `CLIENT_ID` and `CLIENT_SECRET` with the values from your Google Cloud project.
+- Set the `REDIRECT_URI` to a URI of your choice (for example, `localhost` works fine).
+
+### 5. Run the Code
+After setting up the environment variables, run the following command to start the sync:
+
+```bash
+python GDriveMySync.py
 ```
-Of course, fill the ```REDIRECT_URI``` field by inserting the redirect_uri of your choice (localhost works just fine).
-That's it! Now run the code with
-```python GDriveMySync.py``` 
-If you need help with anything, run
-```python GDriveMySync.py -h``` or ```python GDriveMySync.py -help```
+
+### 6. Help command
+If you need any help, run
+```bash
+python GDriveMySync.py -h
+```
+or
+```bash
+python GDriveMySync.py -help
+```
